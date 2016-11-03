@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# A script git pull recursively.
+
+list_alldir(){  
+    for file2 in `ls $1`  
+        do  
+            if [ x"$file2" != x"." -a x"$file2" != x".."  ];then  
+                if [ -d "$1/$file2"  ];then  
+                    echo "$1/$file2"  
+                    cd "Entering $1/$file2........."  
+                    if [ -d ".git" ];then
+                        git pull
+                    else
+                        list_alldir .
+                    fi
+                    cd ..
+                fi  
+             fi  
+        done  
+}  
+if [ -d ".git" ];then
+    git pull
+else
+    list_alldir .
+fi
