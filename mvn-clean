@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# A script git pull recursively.
+# A script mvn clean recursively.
 
 list_alldir(){  
     for file2 in `ls $1`  
@@ -9,9 +9,10 @@ list_alldir(){
                 if [ -d "$1/$file2"  ];then  
                     cd "$1/$file2"  
                     echo "Entering $1/$file2........."  
-                    if [ -d ".git" ];then
-                        git pull
+                    if [ -f pom.xml ];then
+                        mvn clean
                     else
+                        echo 'no pom here'
                         list_alldir .
                     fi
                     cd ..
@@ -19,8 +20,8 @@ list_alldir(){
              fi  
         done  
 }  
-if [ -d ".git" ];then
-    git pull
+if [ -f "pom.xml" ];then
+    mvn clean
 else
     list_alldir .
 fi

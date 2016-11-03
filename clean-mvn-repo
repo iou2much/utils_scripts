@@ -1,0 +1,2 @@
+#!/bin/sh
+find ~/.m2 -atime +180 -iname "*.jar" -exec rm -f {} \;
